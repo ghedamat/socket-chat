@@ -1,0 +1,14 @@
+#!/usr/bin/ruby
+require 'rubygems'
+require 'daemons'
+
+#usage
+#ruby run.rb start
+pwd= File.expand_path(File.dirname(__FILE__))
+pwd = File.join(pwd,'..','lib')
+puts pwd
+Daemons.run_proc('chat', {:dir_mode => :normal, :dir => "/tmp/"}) do
+    Dir.chdir(pwd)
+    exec "ruby #{pwd}/socket-chat.rb"
+end
+
